@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="@Url.Content("~/Content/pixemo-icon.ico")"/>
+    <link href="~/Content/modified-bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr") 
+
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter50006419 = new Ya.Metrika2({
+                    id:50006419,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks2");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/50006419" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>      
+                @Html.ActionLink("pixemo", "main", "media", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                    
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("AdInfo", "advertisinginfo", "relation")</li>
+                    <li>@Html.ActionLink("Chat", "Chat", "relation")</li>
+                    <li>@Html.ActionLink("Media", "main", "media")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li><span class="username">@Html.ActionLink(User.Identity.Name, "main", "media")</span></li>
+                        <li>@Html.ActionLink("Logout", "Logout", "account")</li>
+                        
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Registration", "Registration", "account")</li>
+                        <li>@Html.ActionLink("Log in", "Login", "account")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container-fluid body-content">
+            @RenderBody()   
+        </div>
+    </div>
+      
+       
+        
+    <footer>
+        <hr style="margin-top:0"/>
+       
+        <center> 
+            <p>&copy; Контакты для связи: pixemo@yandex.by</p>
+            <p> <a href="https://vk.com/id189952161">Связь с разработчиком</a> </p>
+            <p>Copyright © pixemo.net, @DateTime.Now.Year. Все права защищены</p> 
+        </center>
+    </footer>
+   
+  
+  
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+ 
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
+

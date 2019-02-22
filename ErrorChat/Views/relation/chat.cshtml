@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "chat";
+    Layout = "~/Views/Shared/_LayoutPageWithoutFooter.cshtml";
+}
+<link rel="stylesheet" href="~/Content/chat.min.css">
+
+<div class="chat">
+    <div class="container">
+        <div class="chat-title">
+            <div class="hide-sm">
+                <h3 id="titleChat">channel number 1</h3><br />
+            </div>
+        </div>
+
+        <div id="divChat" class="chat-box">
+            <div class="loader" style="float:none">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+
+        <center>
+            <div class="send-message">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="col-md-6 form-control input-lg " placeholder="write message.." id="message" />
+
+                    <div class="input-group-btn">
+                        <input type="submit" class="btn btn-default " id="btnSend" value="Send" />
+                    </div>
+                </div>
+            </div>
+        </center>
+
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var IsAuthenticated = "@User.Identity.IsAuthenticated".toLowerCase() == "true";
+        var userName = "@User.Identity.Name";
+    </script>
+
+    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/chat.js"></script>
+}
+
+
+
+
+
+
+

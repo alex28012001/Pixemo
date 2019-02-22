@@ -1,0 +1,76 @@
+﻿@model ErrorChat.Models.InfoAdvertising
+@{
+    ViewBag.Title = "Advertising";
+    string label = $"{Model.AdId}/{Model.UserId}"; //индитификатор платежа
+}
+
+
+<div class="container">
+<h2>Оплата рекламного места @Model.AdId.Remove(0, 1)</h2> @*удаляем 1 букву id только ради красоты*@
+<div>
+    <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+        <input name="label" value="@label" type="hidden">
+        <input name="receiver" value="410017310325948" type="hidden">
+        <input name="quickpay-form" value="shop" type="hidden">
+        <input type="hidden" name="targets" value="Оплата рекламного места @Model.AdId.Remove(0,1)">
+
+
+        <hr />
+        <div style="display:flex;">
+            <div class="inline-block">
+                <span class="text-muted"><label for="sum">Сумма: </label></span>
+                <div class="input-group">
+                    @*disabled что бы пользователь не мог напрямую поменять значение суммы (если поменяет в html , то сервер всёровно проверяет это)*@
+                    <input type="text" id="displayMoney" value="180" maxlength="10" data-type="number" disabled="disabled" class="form-control">
+                    <span class="input-group-addon">₽</span>
+                </div>
+            </div>
+            <div class="inline-block" style="margin-left:30px">
+                <span class="text-muted"><label for="until">На сколько: </label></span>
+                <div class="input-group">
+                    <input type="text" id="until" value="1" disabled="disabled" class="form-control">
+                    <span class="input-group-addon">месяц</span>
+                </div><br />
+            </div>
+        </div>
+        <hr />
+        
+        <input type="text" name="sum" id="sum" value="180" maxlength="10" data-type="number" style="display:none">
+
+
+        <label for="sum">Срок рекламного места: </label><br /><br />
+        <label class="radio-inline"><input type="radio" value="180/1" name="moneyForAd" checked="checked" class="radio">1 месяц (3$ ~ 180₽) </label>
+        <label class="radio-inline"><input type="radio" value="300/2" name="moneyForAd" class="radio">2 месяца (5$ ~ 300₽)</label>
+        <label class="radio-inline"><input type="radio" value="420/3" name="moneyForAd" class="radio">3 месяца (7$ ~ 420₽)</label>
+        <label class="radio-inline"><input type="radio" value="660/6" name="moneyForAd" class="radio">6 месяцев (11$ ~ 660₽)</label>
+        <label class="radio-inline"><input type="radio" value="1020/12" name="moneyForAd" class="radio">1 год (17$ ~ 1020₽)</label>
+        <br /><hr />
+
+        <label for="sum">Способ оплаты: </label><br /><br />
+        <label class="radio-inline"><input type="radio" name="paymentType" class="radio" value="PC">Яндекс.Деньгами</label>
+        <label class="radio-inline"><input type="radio" name="paymentType" class="radio" value="AC">Банковской картой</label>
+        <hr />
+
+
+        <input type="submit" name="submit-button" class="btn btn-success" value="Оплатить">
+        <input name="successURL" value="@Model.SuccessUrl" type="hidden">      
+                     
+</form>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[name=moneyForAd]').click(function () {
+                var selectedAdTariff = $(this).val().split('/');
+                var sum = selectedAdTariff[0];
+                $("#displayMoney").val(sum);
+                $("#sum").val(sum);     
+                $("#until").val(selectedAdTariff[1]);
+            }) 
+        });
+    </script>
+}

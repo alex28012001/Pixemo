@@ -1,0 +1,144 @@
+﻿.chat{
+    background:#dfdfdf;  
+}
+
+.chat-box{
+     padding-top:10px;
+     padding-bottom:10px;
+     overflow-y: auto;
+     overflow-x: hidden;
+}
+
+.message{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    font-family: franklin gothic medium;
+    margin:30px 22px;
+}
+
+.message-text{
+    color:#181818;
+    padding:10px;
+    border-radius:12px;
+    background-color:#FFFFFF;
+    font-size:20px;
+    word-wrap:break-word;
+}
+
+
+.message-information{
+
+    display:inline-block;
+    width:100%;
+}
+
+.message-author{
+    font-size:17px;
+}
+
+.message-date{
+    color: #999999;  
+    font-size:14px;
+}
+
+div.message-out .message-author{
+    margin-left:10px;
+    margin-right:5px;
+}
+div.message-inner .message-author{
+    margin-right:10px;
+     margin-left:5px;
+}
+
+.message-out .message-inner{
+     padding:10px 0;
+}
+
+.message-out{
+    justify-content:flex-end;
+}
+.message-out .message-information{
+  text-align:right; 
+}
+
+.messages {
+  height: auto;
+  min-height: calc(100% - 93px);
+  max-height: calc(100% - 93px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.send-message{
+    padding-bottom:20px;
+}
+
+.chat-title{
+    padding:5px 20px;
+}
+
+
+@media screen and (max-height: 240px) and (min-height: 140px){
+    .chat-box{ height:50px }
+}
+
+
+@media screen and (max-height: 340px) and (min-height: 240px) {
+    .chat-box{ height:150px }
+}
+
+
+@media screen and (max-height: 440px) and (min-height: 340px){
+    .chat-box{ height:250px }
+}
+
+@media screen and (max-height: 540px) and (min-height: 440px){
+   .chat-box{ height:350px }
+}
+
+@media  screen and (max-height: 640px) and (min-height: 540px){
+    .chat-box{ height:450px } 
+}
+
+@media screen and  (max-height: 740px) and (min-height: 640px){
+   .chat-box{ height:550px }
+}
+    
+@media screen and (max-height: 840px) and (min-height: 740px){
+    .chat-box{ height:550px }
+}
+
+@media screen and (max-height: 940px) and (min-height: 840px){
+    .chat-box{ height:920px }
+}
+
+@media screen and (max-height: 1040px) and (min-height: 940px){
+    .chat-box{ height:820px }
+}
+
+@media screen and (max-height: 1140px) and (min-height: 1040px){
+    .chat-box{ height:920px }
+}
+
+@media screen and (max-height: 1240px) and (min-height: 1140px){
+    .chat-box{ height:1020px }
+}
+
+@media screen and (max-height: 1340px) and (min-height: 1240px){
+   .chat-box{ height:1120px }
+}
+
+@media screen and (max-height: 1440px) and (min-height: 1340px){
+    .chat-box{ height:1220px }
+}
+
+@media  (max-height: 1540px) and (min-height: 1440px){
+    .chat-box{ height:1320px }
+}
+
+@media  (max-height: 1640px) and (min-height: 1540px){
+    .chat-box{ height:1420px }
+}
+
+

@@ -1,0 +1,148 @@
+﻿@model BL.Entities.Images.Image
+@{
+    ViewBag.Title = "info";
+    //проверяем чья это картинка pixabay или vk.
+
+
+
+    //Из за того что мы берем картинки с 2 сервисов ,
+    //id картинок могут быть индетечными и для этого мы делаем метку , чтобы в базе данных небыло дубликатов
+    string imageId = Model.OwnerId == null ? "p" + Model.Id.ToString() : "v" + Model.Id.ToString();
+
+
+    //при нажатии на кнопк купить рекламу в метод контроллера передеаются данные о картинке id
+    //,и если это картинка из вк , то еще id группы в которой находится эта картинка ,и если это картинка не из вк то передаётся ее url
+    //это делается для того что бы сформировать url на который мы будем переходить когда оплатим за рекламное место!
+    string ownerId_Url = null;
+    if (Model.OwnerId == null)
+    {
+        Uri url = new Uri(Model.FullHDImageURL);
+        string imgUrl = url.Segments[url.Segments.Count() - 1];
+        System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex("(.jpg)$");
+        ownerId_Url = reg.Replace(imgUrl, "");
+    }
+    else
+    {
+        ownerId_Url = Model.OwnerId.ToString();
+    }
+}
+
+<div class="container">
+
+    <div class="header">
+        <div class="ad-place-id">
+            <h4>Id - @Model.Id</h4>
+        </div>
+        <div class="buy-place">
+            <input type="submit" class="btn btn-default btn-lg" id="buy-ad" value="купить рекламу" />
+        </div>
+    </div>
+
+
+
+    @if (Model.Sizes != null)
+    {
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="images">
+                <img src="@Model.Sizes.ToList()[Model.Sizes.Count() - 1].Url" class="img-responsive-big" />
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="images">
+                <img src="@Model.FullHDImageURL" class="img-responsive-big" />
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="images">
+                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
+                    <div class="ad-place" id="advertising-place">
+                        <a href="/relation/advertising/@Model.Id/@ownerId_Url/">
+                            <img src="~/Content/advertising.jpg" class="img-responsive" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
+                    <div class="ad-place" id="advertising-place-2">
+                        <a href="/relation/advertising/@Model.Id/@ownerId_Url/">
+                            <img src="~/Content/advertising.jpg" class="img-responsive" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Comments">
+        <hr />
+        <div class='inline-block' id="comments-inforamtion">
+            <div class='comments-length'>
+                @if (Model.Comments != null)
+                {
+                    <h3 id='length'>@Model.Comments.Count()</h3>
+                }
+                else
+                {
+                    <h3 id='length'>0</h3>
+                }
+
+                <div class='inline-block'>
+                    <h3>  comments</h3>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        @if (Model.Comments != null)
+        {
+            foreach (var it in Model.Comments) //существующие коменты с вконтакте
+            {
+                <div class="comment">
+                    <h4>@it.SenderName</h4>
+                    <h4 class="comment-date"> @it.Date </h4>
+                </div>
+                <h4>@it.Text</h4>
+                <hr>
+            }
+        }
+
+        <div class="loader">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+
+
+
+    <div class="input-group input-group-lg">
+        <input type="text" class="form-control" id="commentText" placeholder="join the discussion..." />
+        <div class="input-group-btn">
+            <input type="submit" class="btn btn-default" id="sendComment" value="Send" />
+        </div>
+    </div>
+
+
+
+    <div id="moderatorPanel"> </div>
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        var imageId = "@imageId";
+        var returnUrl = location.href;
+    </script>
+
+    @Scripts.Render("~/bundles/info")
+}
+
+
+
+
